@@ -28,13 +28,6 @@ namespace WebApi.Business.Models
         public string Password { get; set; }
         public int? Perfil { get; set; }
         public int? Status { get; set; }
-        public string StatusName
-        {
-            get
-            {
-                return Status.HasValue ? (Status > 0 ? "Activo" : "Inactivo") : "Inactivo";
-            }
-        }
 
     }
 

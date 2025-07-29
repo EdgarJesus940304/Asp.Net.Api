@@ -83,7 +83,8 @@ namespace WebApi.Business.Handlers
 
                 return new MessageResponse()
                 {
-                    ResponseType = ResponseType.OK
+                    ResponseType = ResponseType.OK,
+                    Message = "Usuario registrado exitosamente"
                 };
             }
             catch (Exception ex)

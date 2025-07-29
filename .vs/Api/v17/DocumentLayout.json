@@ -11,11 +11,7 @@
       "RelativeMoniker": "D:0:0:{23374FC2-9F2C-4E16-8F94-4A44F5041024}|WebApi.Business\\WebApi.Business.csproj|solutionrelative:webapi.business\\handlers\\userhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{23374FC2-9F2C-4E16-8F94-4A44F5041024}|WebApi.Business\\WebApi.Business.csproj|c:\\users\\lenovo\\documents\\github\\asp.net.api\\webapi.business\\handlers\\medicationhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{23374FC2-9F2C-4E16-8F94-4A44F5041024}|WebApi.Business\\WebApi.Business.csproj|solutionrelative:webapi.business\\handlers\\medicationhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A048180A-139D-4704-A2FC-EBC3FFC8C5CA}|WebApi\\WebApi.csproj|c:\\users\\lenovo\\documents\\github\\asp.net.api\\webapi\\controllers\\medicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A048180A-139D-4704-A2FC-EBC3FFC8C5CA}|WebApi\\WebApi.csproj|C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\webapi\\controllers\\medicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A048180A-139D-4704-A2FC-EBC3FFC8C5CA}|WebApi\\WebApi.csproj|solutionrelative:webapi\\controllers\\medicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,8 +22,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 52,
+          "SelectedChildIndex": 51,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserHandler.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi.Business\\Handlers\\UserHandler.cs",
+              "RelativeDocumentMoniker": "WebApi.Business\\Handlers\\UserHandler.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi.Business\\Handlers\\UserHandler.cs",
+              "RelativeToolTip": "WebApi.Business\\Handlers\\UserHandler.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAAFcAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T20:49:26.729Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:140:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -227,32 +236,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "MedicationHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi.Business\\Handlers\\MedicationHandler.cs",
-              "RelativeDocumentMoniker": "WebApi.Business\\Handlers\\MedicationHandler.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi.Business\\Handlers\\MedicationHandler.cs",
-              "RelativeToolTip": "WebApi.Business\\Handlers\\MedicationHandler.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwCAAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-29T16:56:44.764Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi.Business\\Handlers\\UserHandler.cs",
-              "RelativeDocumentMoniker": "WebApi.Business\\Handlers\\UserHandler.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi.Business\\Handlers\\UserHandler.cs",
-              "RelativeToolTip": "WebApi.Business\\Handlers\\UserHandler.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAqwEwAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-29T16:29:35.373Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "MedicationController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi\\Controllers\\MedicationController.cs",
               "RelativeDocumentMoniker": "WebApi\\Controllers\\MedicationController.cs",
@@ -271,7 +254,7 @@
               "RelativeDocumentMoniker": "WebApi\\Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi\\Controllers\\UserController.cs",
               "RelativeToolTip": "WebApi\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAAAawDEAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-29T06:16:00.233Z",
               "EditorCaption": ""

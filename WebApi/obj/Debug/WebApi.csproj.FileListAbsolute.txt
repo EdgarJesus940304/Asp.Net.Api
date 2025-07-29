@@ -105,3 +105,5 @@ C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi\bin\LinqKit.Core.dll
 C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi\bin\LinqKit.dll
 C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi\bin\LinqKit.Core.xml
 C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi\bin\LinqKit.xml
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi\bin\EntityFramework.SqlServer.dll
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi\bin\EntityFramework.SqlServer.xml

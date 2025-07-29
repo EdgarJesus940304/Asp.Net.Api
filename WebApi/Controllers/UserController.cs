@@ -7,13 +7,14 @@ using System.Web;
 using System.Web.Http;
 using WebApi.Business.Handlers;
 using WebApi.Business.Models;
+using WebApi.Business.Utils;
 
 namespace WebApi.Controllers
 {
     public class UserController : ApiController
     {
         [HttpPost]
-        [Route("api/users/show")]
+        [Route("api/users/list")]
         public HttpResponseMessage GetUsers([FromBody] FilterDataTableModel filterData)
         {
             using (var userHandler = new UserHandler())
@@ -42,18 +43,16 @@ namespace WebApi.Controllers
             using (var userHandler = new UserHandler())
             {
                 var response = userHandler.SaveUser(user);
-                if (response.ResponseType == Business.Utils.ResponseType.OK)
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                    ? HttpStatusCode.OK
+                    : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new MessageResponse
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, new
-                    {
-                        success = true,
-                        message = response.Message
-                    });
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, response.Message);
-                }
+                    ResponseType = response.ResponseType,
+                    Message = response.Message
+                });
             }
         }
 
