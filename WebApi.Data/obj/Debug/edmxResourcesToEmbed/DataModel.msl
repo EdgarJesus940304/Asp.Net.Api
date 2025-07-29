@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Cepdi_PruebaModelStoreContainer" CdmEntityContainer="Cepdi_PruebaEntities">
+    <EntitySetMapping Name="formasfarmaceuticas">
+      <EntityTypeMapping TypeName="Cepdi_PruebaModel.formasfarmaceuticas">
+        <MappingFragment StoreEntitySet="formasfarmaceuticas">
+          <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idformafarmaceutica" ColumnName="idformafarmaceutica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="medicamentos">
+      <EntityTypeMapping TypeName="Cepdi_PruebaModel.medicamentos">
+        <MappingFragment StoreEntitySet="medicamentos">
+          <ScalarProperty Name="bhabilitado" ColumnName="bhabilitado" />
+          <ScalarProperty Name="presentacion" ColumnName="presentacion" />
+          <ScalarProperty Name="stock" ColumnName="stock" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="idformafarmaceutica" ColumnName="idformafarmaceutica" />
+          <ScalarProperty Name="concentracion" ColumnName="concentracion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idmedicamento" ColumnName="idmedicamento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuarios">
+      <EntityTypeMapping TypeName="Cepdi_PruebaModel.usuarios">
+        <MappingFragment StoreEntitySet="usuarios">
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="idperfil" ColumnName="idperfil" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idusuario" ColumnName="idusuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

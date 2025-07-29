@@ -9,190 +9,151 @@ using WebApi.Data;
 
 namespace WebApi.Business.Handlers
 {
-    public class MedicationHandler
+    public class MedicationHandler : BaseHandler
     {
         public MessageResponse GetMedications()
         {
-            using (var Db = new Cepdi_PruebaEntities())
+            try
             {
-                try
+                var medications = Db.medicamentos.Select(md => new MedicationModel()
                 {
-                    var medications = Db.medicamentos.Select(md => new MedicationModel()
-                    {
-                        Id = md.idmedicamento,
-                        Name = md.nombre,
-                        Concentration = md.concentracion,
-                        Presentation = md.presentacion,
-                        Price = md.precio,
-                        Stock = md.stock,
-                        Enable = md.bhabilitado
-                    }).ToList();
+                    Id = md.idmedicamento,
+                    Name = md.nombre,
+                    Concentration = md.concentracion,
+                    Presentation = md.presentacion,
+                    Price = md.precio,
+                    Stock = md.stock,
+                    Enable = md.bhabilitado
+                }).ToList();
 
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.OK,
-                        Data = medications
-                    };
-                }
-                catch (Exception ex)
+                return new MessageResponse()
                 {
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.Error,
-                        Message = $"No fue posible consultar los medicamentos {ex.Message} {ex?.InnerException?.Message}"
-                    };
-                }
+                    ResponseType = ResponseType.OK,
+                    Data = medications
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible consultar los medicamentos {ex.Message} {ex?.InnerException?.Message}"
+                };
             }
         }
 
         public MessageResponse GetMedicationById(int id)
         {
-            using (var Db = new Cepdi_PruebaEntities())
+            try
             {
-                try
-                {
-                    var data = Db.medicamentos.FirstOrDefault(f => f.idmedicamento == id);
+                var data = Db.medicamentos.FirstOrDefault(f => f.idmedicamento == id);
+                MedicationModel medication = data.ToMedicationBusiness();
 
-                    MedicationModel medication = new MedicationModel()
-                    {
-                        Id = data.idmedicamento,
-                        Name = data.nombre,
-                        Concentration = data.concentracion,
-                        Presentation = data.presentacion,
-                        Price = data.precio,
-                        Stock = data.stock,
-                        Enable = data.bhabilitado, 
-                        PharmaceuticalForm = new PharmaceuticalFormModel()
-                        {
-                            Id = id,
-                            Name = data.formasfarmaceuticas.nombre
-                        }
-                    };
-
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.OK,
-                        Data = medication
-                    };
-                }
-                catch (Exception ex)
+                return new MessageResponse()
                 {
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.Error,
-                        Message = $"No fue posible obtener el medicamento especificado {ex.Message} {ex?.InnerException?.Message}"
-                    };
-                }
+                    ResponseType = ResponseType.OK,
+                    Data = medication
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible obtener el medicamento especificado {ex.Message} {ex?.InnerException?.Message}"
+                };
             }
         }
 
         public MessageResponse SaveMedication(MedicationModel medication)
         {
-            using (var Db = new Cepdi_PruebaEntities())
+            try
             {
-                try
-                {
-                    Db.medicamentos.Add(new medicamentos()
-                    {
-                        nombre = medication.Name,
-                        concentracion = medication.Concentration,
-                        presentacion = medication.Presentation,
-                        precio = medication.Price,
-                        stock = medication.Stock,
-                        bhabilitado = medication.Enable,
-                        idformafarmaceutica = medication?.PharmaceuticalForm?.Id
-                    });
+                Db.medicamentos.Add(medication.ToMedicationData());
+                Db.SaveChanges();
 
-                    Db.SaveChanges();
-
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.OK
-                    };
-                }
-                catch (Exception ex)
+                return new MessageResponse()
                 {
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.Error,
-                        Message = $"No fue posible guardar el medicamento capturado {ex.Message} {ex?.InnerException?.Message}"
-                    };
-                }
+                    ResponseType = ResponseType.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible guardar el medicamento capturado {ex.Message} {ex?.InnerException?.Message}"
+                };
             }
         }
 
         public MessageResponse UpdateMedication(MedicationModel medication)
         {
-            using (var Db = new Cepdi_PruebaEntities())
+            try
             {
-                try
-                {
-                    var entry = Db.medicamentos.Find(medication.Id);
+                var entry = Db.medicamentos.Find(medication.Id);
 
-                    if (entry == null)
-                    {
-                        return new MessageResponse()
-                        {
-                            ResponseType = ResponseType.Error,
-                            Message = $"No fue posible obtener el medicamento especificado"
-                        };
-                    }
-
-
-                    Db.Entry(entry).CurrentValues.SetValues(medication);
-                    Db.SaveChanges();
-
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.OK
-                    };
-                }
-                catch (Exception ex)
+                if (entry == null)
                 {
                     return new MessageResponse()
                     {
                         ResponseType = ResponseType.Error,
-                        Message = $"No fue posible actualizar el medicamento especificado {ex.Message} {ex?.InnerException?.Message}"
+                        Message = $"No fue posible obtener el medicamento especificado"
                     };
                 }
+
+
+                Db.Entry(entry).CurrentValues.SetValues(medication);
+                Db.SaveChanges();
+
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible actualizar el medicamento especificado {ex.Message} {ex?.InnerException?.Message}"
+                };
             }
         }
 
-        public MessageResponse DeleteUser(MedicationModel medication)
+        public MessageResponse DeleteMedication(int medicationId)
         {
-            using (var Db = new Cepdi_PruebaEntities())
+            try
             {
-                try
-                {
-                    var entry = Db.medicamentos.Find(medication.Id);
+                var entry = Db.medicamentos.Find(medicationId);
 
-                    if (entry == null)
-                    {
-                        return new MessageResponse()
-                        {
-                            ResponseType = ResponseType.Error,
-                            Message = $"No fue posible obtener el medicamento especificado"
-                        };
-                    }
-
-
-                    Db.medicamentos.Remove(entry);
-                    Db.SaveChanges();
-
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.OK
-                    };
-                }
-                catch (Exception ex)
+                if (entry == null)
                 {
                     return new MessageResponse()
                     {
                         ResponseType = ResponseType.Error,
-                        Message = $"No fue posible eliminar el medicamento especificado {ex.Message} {ex?.InnerException?.Message}"
+                        Message = $"No fue posible obtener el medicamento especificado"
                     };
                 }
+
+
+                Db.medicamentos.Remove(entry);
+                Db.SaveChanges();
+
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.OK
+                };
             }
+            catch (Exception ex)
+            {
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible eliminar el medicamento especificado {ex.Message} {ex?.InnerException?.Message}"
+                };
+            }
+
         }
     }
 }

@@ -1,0 +1,12 @@
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\bin\Debug\WebApi.Data.dll.config
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\bin\Debug\WebApi.Data.dll
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\bin\Debug\WebApi.Data.pdb
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\bin\Debug\EntityFramework.dll
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\bin\Debug\EntityFramework.xml
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\obj\Debug\WebApi.Data.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\obj\Debug\WebApi.Data.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\obj\Debug\WebApi.D.63A54CCA.Up2Date
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\obj\Debug\WebApi.Data.dll
+C:\Users\Lenovo\Documents\GitHub\Asp.Net.Api\WebApi.Data\obj\Debug\WebApi.Data.pdb

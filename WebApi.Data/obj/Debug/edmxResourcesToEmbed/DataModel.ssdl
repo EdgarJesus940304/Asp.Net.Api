@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Cepdi_PruebaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="formasfarmaceuticas">
+    <Key>
+      <PropertyRef Name="idformafarmaceutica" />
+    </Key>
+    <Property Name="idformafarmaceutica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="100" />
+    <Property Name="habilitado" Type="int" />
+  </EntityType>
+  <EntityType Name="medicamentos">
+    <Key>
+      <PropertyRef Name="idmedicamento" />
+    </Key>
+    <Property Name="idmedicamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="100" />
+    <Property Name="concentracion" Type="varchar" MaxLength="100" />
+    <Property Name="idformafarmaceutica" Type="int" />
+    <Property Name="precio" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="stock" Type="int" />
+    <Property Name="presentacion" Type="varchar" MaxLength="100" />
+    <Property Name="bhabilitado" Type="int" />
+  </EntityType>
+  <EntityType Name="usuarios">
+    <Key>
+      <PropertyRef Name="idusuario" />
+    </Key>
+    <Property Name="idusuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="200" />
+    <Property Name="fechacreacion" Type="datetime2" Precision="7" />
+    <Property Name="usuario" Type="nvarchar" MaxLength="100" />
+    <Property Name="password" Type="nvarchar" MaxLength="100" />
+    <Property Name="idperfil" Type="int" />
+    <Property Name="estatus" Type="int" />
+  </EntityType>
+  <Association Name="FK__medicamen__idfor__47DBAE45">
+    <End Role="formasfarmaceuticas" Type="Self.formasfarmaceuticas" Multiplicity="0..1" />
+    <End Role="medicamentos" Type="Self.medicamentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="formasfarmaceuticas">
+        <PropertyRef Name="idformafarmaceutica" />
+      </Principal>
+      <Dependent Role="medicamentos">
+        <PropertyRef Name="idformafarmaceutica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Cepdi_PruebaModelStoreContainer">
+    <EntitySet Name="formasfarmaceuticas" EntityType="Self.formasfarmaceuticas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="medicamentos" EntityType="Self.medicamentos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__medicamen__idfor__47DBAE45" Association="Self.FK__medicamen__idfor__47DBAE45">
+      <End Role="formasfarmaceuticas" EntitySet="formasfarmaceuticas" />
+      <End Role="medicamentos" EntitySet="medicamentos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,6 +1,9 @@
-﻿using System;
+﻿using LinqKit;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi.Business.Models;
@@ -9,183 +12,167 @@ using WebApi.Data;
 
 namespace WebApi.Business.Handlers
 {
-    public class UserHandler
+    public class UserHandler : BaseHandler
     {
-        public MessageResponse GetUsers()
+        public MessageResponse GetUsers(FilterDataTableModel model)
         {
-            using (var Db = new Cepdi_PruebaEntities())
+            try
             {
-                try
-                {
-                    var users = Db.usuarios.Select(us => new UserModel()
-                    {
-                        Id = us.idusuario,
-                        UserName = us.usuario,
-                        Password = us.password,
-                        CreationDate = us.fechacreacion,
-                        Name = us.nombre,
-                        Perfil = us.idperfil,
-                        Status = us.estatus
-                    }).ToList();
+                var whereClause = BuildWhereClause(model.SearchBy);
+                var sqlQuery = Db.usuarios;
+                var result = sqlQuery
+                               .AsExpandable()
+                               .Where(whereClause)
+                               .OrderBy(model.SortBy, model.SortDir)
+                               .Skip(model.Skip)
+                               .Take(model.Take > 0 ? model.Take : sqlQuery.Count())
+                               .AsEnumerable();
 
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.OK,
-                        Data = users
-                    };
-                }
-                catch (Exception ex)
+                return new MessageResponse()
                 {
-                    return new MessageResponse()
+                    ResponseType = ResponseType.OK,
+                    Data = new
                     {
-                        ResponseType = ResponseType.Error,
-                        Message = $"No fue posible consultar los usuarios {ex.Message} {ex?.InnerException?.Message}"
-                    };
-                }
+                        Users = result.Select(us => us.ToUserBusiness()).ToList(),
+                        FilteredResutlsCount = sqlQuery.AsExpandable().Where(whereClause).Count(),
+                        TotalResultsCount = sqlQuery.Count()
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible consultar los usuarios {ex.Message} {ex?.InnerException?.Message}"
+                };
             }
         }
 
         public MessageResponse GetUserById(int id)
         {
-            using (var Db = new Cepdi_PruebaEntities())
+            try
             {
-                try
-                {
-                    var data = Db.usuarios.FirstOrDefault(f => f.idusuario == id);
+                var data = Db.usuarios.FirstOrDefault(f => f.idusuario == id);
+                UserModel user = data.ToUserBusiness();
 
-                    UserModel user = new UserModel()
-                    {
-                        Id = data.idusuario,
-                        UserName = data.usuario,
-                        Password = data.password,
-                        CreationDate = data.fechacreacion,
-                        Name = data.nombre,
-                        Perfil = data.idperfil,
-                        Status = data.estatus
-                    };
-
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.OK,
-                        Data = user
-                    };
-                }
-                catch (Exception ex)
+                return new MessageResponse()
                 {
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.Error,
-                        Message = $"No fue posible obtener el usuario especificado {ex.Message} {ex?.InnerException?.Message}"
-                    };
-                }
+                    ResponseType = ResponseType.OK,
+                    Data = user
+                };
             }
+            catch (Exception ex)
+            {
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible obtener el usuario especificado {ex.Message} {ex?.InnerException?.Message}"
+                };
+            }
+
         }
 
         public MessageResponse SaveUser(UserModel user)
         {
-            using (var Db = new Cepdi_PruebaEntities())
+            try
             {
-                try
-                {
-                    Db.usuarios.Add(new usuarios()
-                    {
-                        nombre = user.Name,
-                        estatus = user.Status,
-                        fechacreacion = DateTime.Now,
-                        usuario = user.UserName,
-                        password = user.Password,
-                    });
+                Db.usuarios.Add(user.ToUserData());
+                Db.SaveChanges();
 
-                    Db.SaveChanges();
-
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.OK
-                    };
-                }
-                catch (Exception ex)
+                return new MessageResponse()
                 {
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.Error,
-                        Message = $"No fue posible registrar el usuario capturado {ex.Message} {ex?.InnerException?.Message}"
-                    };
-                }
+                    ResponseType = ResponseType.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible registrar el usuario capturado {ex.Message} {ex?.InnerException?.Message}"
+                };
             }
         }
 
         public MessageResponse UpdateUser(UserModel user)
         {
-            using (var Db = new Cepdi_PruebaEntities())
+            try
             {
-                try
-                {
-                    var entry = Db.usuarios.Find(user.Id);
+                var entry = Db.usuarios.Find(user.Id);
 
-                    if (entry == null)
-                    {
-                        return new MessageResponse()
-                        {
-                            ResponseType = ResponseType.Error,
-                            Message = $"No fue posible obtener el usuario especificado"
-                        };
-                    }
-
-
-                    Db.Entry(entry).CurrentValues.SetValues(user);
-                    Db.SaveChanges();
-
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.OK
-                    };
-                }
-                catch (Exception ex)
+                if (entry == null)
                 {
                     return new MessageResponse()
                     {
                         ResponseType = ResponseType.Error,
-                        Message = $"No fue posible actualizar el usuario especificado {ex.Message} {ex?.InnerException?.Message}"
+                        Message = $"No fue posible obtener el usuario especificado"
                     };
                 }
+
+
+                Db.Entry(entry).CurrentValues.SetValues(user);
+                Db.SaveChanges();
+
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible actualizar el usuario especificado {ex.Message} {ex?.InnerException?.Message}"
+                };
             }
         }
 
-        public MessageResponse DeleteUser(UserModel user)
+        public MessageResponse DeleteUser(int userId)
         {
-            using (var Db = new Cepdi_PruebaEntities())
+            try
             {
-                try
-                {
-                    var entry = Db.usuarios.Find(user.Id);
+                var entry = Db.usuarios.Find(userId);
 
-                    if (entry == null)
-                    {
-                        return new MessageResponse()
-                        {
-                            ResponseType = ResponseType.Error,
-                            Message = $"No fue posible obtener el usuario especificado"
-                        };
-                    }
-
-
-                    Db.usuarios.Remove(entry);
-                    Db.SaveChanges();
-
-                    return new MessageResponse()
-                    {
-                        ResponseType = ResponseType.OK
-                    };
-                }
-                catch (Exception ex)
+                if (entry == null)
                 {
                     return new MessageResponse()
                     {
                         ResponseType = ResponseType.Error,
-                        Message = $"No fue posible eliminar el usuario especificado {ex.Message} {ex?.InnerException?.Message}"
+                        Message = $"No fue posible obtener el usuario especificado"
                     };
                 }
+
+                Db.usuarios.Remove(entry);
+                Db.SaveChanges();
+
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.OK
+                };
             }
+            catch (Exception ex)
+            {
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible eliminar el usuario especificado {ex.Message} {ex?.InnerException?.Message}"
+                };
+            }
+        }
+
+        private Expression<Func<Data.usuarios, bool>> BuildWhereClause(string searchValue)
+        {
+            var predicate = PredicateBuilder.New<Data.usuarios>(true);
+            if (string.IsNullOrWhiteSpace(searchValue) == false)
+            {
+                var searchTerms = searchValue.Split(' ').ToList().ConvertAll(x => x.ToLower());
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.nombre.ToLower().Contains(srch)));
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.usuario.ToLower().Contains(srch)));
+            }
+            return predicate;
         }
     }
 }

@@ -13,7 +13,6 @@ namespace WebApi.Business.Utils
         public MessageResponse()
         {
             Message = "";
-            Number = 0;
             Data = null;
         }
 
