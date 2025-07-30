@@ -115,6 +115,7 @@ namespace WebApi.Business.Handlers
 
 
                 Db.Entry(entry).CurrentValues.SetValues(user.ToUserData());
+                Db.Entry(entry).Property(e => e.fechacreacion).IsModified = false;
                 Db.SaveChanges();
 
                 return new MessageResponse()
@@ -153,7 +154,8 @@ namespace WebApi.Business.Handlers
 
                 return new MessageResponse()
                 {
-                    ResponseType = ResponseType.OK
+                    ResponseType = ResponseType.OK,
+                    Message = "Usuario borrado exitosamente",
                 };
             }
             catch (Exception ex)

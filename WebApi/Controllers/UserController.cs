@@ -103,18 +103,16 @@ namespace WebApi.Controllers
             using (var userHandler = new UserHandler())
             {
                 var response = userHandler.DeleteUser(Id);
-                if (response.ResponseType == Business.Utils.ResponseType.OK)
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                   ? HttpStatusCode.OK
+                   : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new MessageResponse
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, new
-                    {
-                        success = true,
-                        message = response.Message
-                    });
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, response.Message);
-                }
+                    ResponseType = response.ResponseType,
+                    Message = response.Message
+                });
             }
         }
     }
