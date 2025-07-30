@@ -28,12 +28,5 @@ namespace WebApi.Business.Models
         public int? Enable { get; set; }
         public PharmaceuticalFormModel PharmaceuticalForm { get; set; }
 
-        public string StatusName
-        {
-            get
-            {
-                return Enable.HasValue ? (Enable > 0 ? "Activo" : "Inactivo") : "Inactivo";
-            }
-        }
     }
 }

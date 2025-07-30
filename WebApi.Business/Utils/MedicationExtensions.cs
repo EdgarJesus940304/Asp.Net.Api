@@ -14,6 +14,7 @@ namespace WebApi.Business.Utils
         {
             return model == null ? null : new Data.medicamentos()
             {
+                idmedicamento = model.Id,
                 nombre = model.Name,
                 concentracion = model.Concentration,
                 idformafarmaceutica = model?.PharmaceuticalForm?.Id,
@@ -40,8 +41,8 @@ namespace WebApi.Business.Utils
                 Enable = data.bhabilitado,
                 PharmaceuticalForm = new PharmaceuticalFormModel()
                 {
-                    Id = data.formasfarmaceuticas.idformafarmaceutica,
-                    Name = data.formasfarmaceuticas.nombre
+                    Id = data.formasfarmaceuticas?.idformafarmaceutica,
+                    Name = data.formasfarmaceuticas?.nombre
                 }
             };
         }

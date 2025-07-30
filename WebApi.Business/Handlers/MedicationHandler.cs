@@ -82,6 +82,7 @@ namespace WebApi.Business.Handlers
 
                 return new MessageResponse()
                 {
+                    Message = "Medicamento registrado exitosamente",
                     ResponseType = ResponseType.OK
                 };
             }
@@ -111,11 +112,12 @@ namespace WebApi.Business.Handlers
                 }
 
 
-                Db.Entry(entry).CurrentValues.SetValues(medication);
+                Db.Entry(entry).CurrentValues.SetValues(medication.ToMedicationData());
                 Db.SaveChanges();
 
                 return new MessageResponse()
                 {
+                    Message = "Medicamento actualizado exitosamente",
                     ResponseType = ResponseType.OK
                 };
             }
@@ -150,6 +152,7 @@ namespace WebApi.Business.Handlers
 
                 return new MessageResponse()
                 {
+                    Message = "Medicamento borrado exitosamente",
                     ResponseType = ResponseType.OK
                 };
             }

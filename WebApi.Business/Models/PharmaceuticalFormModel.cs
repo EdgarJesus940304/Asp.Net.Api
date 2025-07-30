@@ -17,16 +17,9 @@ namespace WebApi.Business.Models
             Habilitado = 1;
         }
 
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public int? Habilitado { get; set; }
 
-        public string StatusName
-        {
-            get
-            {
-                return Habilitado.HasValue ? (Habilitado > 0 ? "Activo" : "Inactivo") : "Inactivo";
-            }
-        }
     }
 }

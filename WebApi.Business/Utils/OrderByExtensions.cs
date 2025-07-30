@@ -17,6 +17,10 @@ namespace WebApi.Business.Utils
                 { "Name", "nombre" },
                 { "UserName", "usuario" },
                 { "CreationDate", "fechacreacion" },
+                { "Concentration", "concentracion" },
+                { "Price", "precio" },
+                { "Stock", "stock" },
+                { "Presentation", "presentacion" },
             };
 
             string mappedProperty;

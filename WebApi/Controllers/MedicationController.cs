@@ -97,7 +97,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("api/users/{id}")]
+        [Route("api/medications/{id}")]
         public HttpResponseMessage Delete(int id)
         {
             using (var medicationHandler = new MedicationHandler())
