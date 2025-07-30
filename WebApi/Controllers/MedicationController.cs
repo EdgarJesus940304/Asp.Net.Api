@@ -7,71 +7,112 @@ using System.Web;
 using System.Web.Http;
 using WebApi.Business.Handlers;
 using WebApi.Business.Models;
+using WebApi.Business.Utils;
 
 namespace WebApi.Controllers
 {
     public class MedicationController : ApiController
     {
+
         [HttpPost]
+        [Route("api/medications/list")]
+        public HttpResponseMessage GetMedications([FromBody] FilterDataTableModel filterData)
+        {
+            using (var medicationHandler = new MedicationHandler())
+            {
+                var response = medicationHandler.GetMedications(filterData);
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                         ? HttpStatusCode.OK
+                         : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new
+                {
+                    response.Data
+                });
+            }
+        }
+
+
+        [HttpGet]
+        [Route("api/medications/{id}")]
+        public HttpResponseMessage GetUser(int id)
+        {
+            using (var medicationHandler = new MedicationHandler())
+            {
+                var response = medicationHandler.GetMedicationById(id);
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                    ? HttpStatusCode.OK
+                    : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new MessageResponse
+                {
+                    ResponseType = response.ResponseType,
+                    Message = response.Message,
+                    Data = response.Data
+                });
+            }
+        }
+
+
+        [HttpPost]
+        [Route("api/medications")]
         public HttpResponseMessage Post([FromBody] MedicationModel medication)
         {
             using (var medicationHandler = new MedicationHandler())
             {
                 var response = medicationHandler.SaveMedication(medication);
-                if (response.ResponseType == Business.Utils.ResponseType.OK)
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                    ? HttpStatusCode.OK
+                    : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new MessageResponse
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, new
-                    {
-                        success = true,
-                        message = response.Message
-                    });
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, response.Message);
-                }
+                    ResponseType = response.ResponseType,
+                    Message = response.Message
+                });
             }
         }
 
         [HttpPut]
-        public HttpResponseMessage Put([FromBody] MedicationModel medication)
+        [Route("api/medications/{id}")]
+        public HttpResponseMessage Put(int id, [FromBody] MedicationModel medication)
         {
             using (var medicationHandler = new MedicationHandler())
             {
                 var response = medicationHandler.UpdateMedication(medication);
-                if (response.ResponseType == Business.Utils.ResponseType.OK)
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                    ? HttpStatusCode.OK
+                    : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new MessageResponse
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, new
-                    {
-                        success = true,
-                        message = response.Message
-                    });
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, response.Message);
-                }
+                    ResponseType = response.ResponseType,
+                    Message = response.Message
+                });
             }
         }
 
         [HttpDelete]
-        public HttpResponseMessage Delete(int medicationId)
+        [Route("api/users/{id}")]
+        public HttpResponseMessage Delete(int id)
         {
             using (var medicationHandler = new MedicationHandler())
             {
-                var response = medicationHandler.DeleteMedication(medicationId);
-                if (response.ResponseType == Business.Utils.ResponseType.OK)
+                var response = medicationHandler.DeleteMedication(id);
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                    ? HttpStatusCode.OK
+                    : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new MessageResponse
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, new
-                    {
-                        success = true,
-                        message = response.Message
-                    });
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, response.Message);
-                }
+                    ResponseType = response.ResponseType,
+                    Message = response.Message
+                });
             }
         }
     }

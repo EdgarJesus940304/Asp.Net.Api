@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{23374FC2-9F2C-4E16-8F94-4A44F5041024}|WebApi.Business\\WebApi.Business.csproj|c:\\users\\lenovo\\documents\\github\\asp.net.api\\webapi.business\\handlers\\userhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{23374FC2-9F2C-4E16-8F94-4A44F5041024}|WebApi.Business\\WebApi.Business.csproj|solutionrelative:webapi.business\\handlers\\userhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A048180A-139D-4704-A2FC-EBC3FFC8C5CA}|WebApi\\WebApi.csproj|c:\\users\\lenovo\\documents\\github\\asp.net.api\\webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A048180A-139D-4704-A2FC-EBC3FFC8C5CA}|WebApi\\WebApi.csproj|solutionrelative:webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{23374FC2-9F2C-4E16-8F94-4A44F5041024}|WebApi.Business\\WebApi.Business.csproj|c:\\users\\lenovo\\documents\\github\\asp.net.api\\webapi.business\\handlers\\userhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{23374FC2-9F2C-4E16-8F94-4A44F5041024}|WebApi.Business\\WebApi.Business.csproj|solutionrelative:webapi.business\\handlers\\userhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{23374FC2-9F2C-4E16-8F94-4A44F5041024}|WebApi.Business\\WebApi.Business.csproj|c:\\users\\lenovo\\documents\\github\\asp.net.api\\webapi.business\\utils\\usermodelextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{23374FC2-9F2C-4E16-8F94-4A44F5041024}|WebApi.Business\\WebApi.Business.csproj|solutionrelative:webapi.business\\utils\\usermodelextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -218,26 +222,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "UserModelExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi.Business\\Utils\\UserModelExtensions.cs",
+              "RelativeDocumentMoniker": "WebApi.Business\\Utils\\UserModelExtensions.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi.Business\\Utils\\UserModelExtensions.cs",
+              "RelativeToolTip": "WebApi.Business\\Utils\\UserModelExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T03:54:16.946Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "UserHandler.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi.Business\\Handlers\\UserHandler.cs",
               "RelativeDocumentMoniker": "WebApi.Business\\Handlers\\UserHandler.cs",
               "ToolTip": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi.Business\\Handlers\\UserHandler.cs",
               "RelativeToolTip": "WebApi.Business\\Handlers\\UserHandler.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAuwGcAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAuwHUAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-29T22:08:04.702Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "WebApi\\Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\Lenovo\\Documents\\GitHub\\Asp.Net.Api\\WebApi\\Controllers\\UserController.cs",
               "RelativeToolTip": "WebApi\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAawFQAAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAawFQAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-29T06:16:00.233Z",
               "EditorCaption": ""

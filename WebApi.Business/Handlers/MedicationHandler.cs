@@ -1,39 +1,47 @@
-﻿using System;
+﻿using LinqKit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi.Business.Models;
 using WebApi.Business.Utils;
 using WebApi.Data;
+using System.Data.Entity;
 
 namespace WebApi.Business.Handlers
 {
     public class MedicationHandler : BaseHandler
     {
-        public MessageResponse GetMedications()
+        public MessageResponse GetMedications(FilterDataTableModel model)
         {
             try
             {
-                var medications = Db.medicamentos.Select(md => new MedicationModel()
-                {
-                    Id = md.idmedicamento,
-                    Name = md.nombre,
-                    Concentration = md.concentracion,
-                    Presentation = md.presentacion,
-                    Price = md.precio,
-                    Stock = md.stock,
-                    Enable = md.bhabilitado
-                }).ToList();
+                var whereClause = BuildWhereClause(model.SearchBy);
+                var sqlQuery = Db.medicamentos.Include(s => s.formasfarmaceuticas);
+                var result = sqlQuery
+                               .AsExpandable()
+                               .Where(whereClause)
+                               .OrderBy(model.SortBy, model.SortDir)
+                               .Skip(model.Skip)
+                               .Take(model.Take > 0 ? model.Take : sqlQuery.Count())
+                               .AsEnumerable();
 
                 return new MessageResponse()
                 {
                     ResponseType = ResponseType.OK,
-                    Data = medications
+                    Data = new
+                    {
+                        recordsTotal = sqlQuery.Count(),
+                        recordsFiltered = sqlQuery.AsExpandable().Where(whereClause).Count(),
+                        data = result.Select(us => us.ToMedicationBusiness()).ToList()
+                    }
                 };
             }
             catch (Exception ex)
             {
+
                 return new MessageResponse()
                 {
                     ResponseType = ResponseType.Error,
@@ -154,6 +162,20 @@ namespace WebApi.Business.Handlers
                 };
             }
 
+        }
+
+        private Expression<Func<Data.medicamentos, bool>> BuildWhereClause(string searchValue)
+        {
+            var predicate = PredicateBuilder.New<Data.medicamentos>(true);
+            if (string.IsNullOrWhiteSpace(searchValue) == false)
+            {
+                var searchTerms = searchValue.Split(' ').ToList().ConvertAll(x => x.ToLower());
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.nombre.ToLower().Contains(srch)));
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.concentracion.ToLower().Contains(srch)));
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.presentacion.ToLower().Contains(srch)));
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.formasfarmaceuticas.nombre.ToLower().Contains(srch)));
+            }
+            return predicate;
         }
     }
 }

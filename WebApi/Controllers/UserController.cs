@@ -35,11 +35,11 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("api/users/{id}")]
-        public HttpResponseMessage GetUser(int Id)
+        public HttpResponseMessage GetUser(int id)
         {
             using (var userHandler = new UserHandler())
             {
-                var response = userHandler.GetUserById(Id);
+                var response = userHandler.GetUserById(id);
 
                 HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
                     ? HttpStatusCode.OK
@@ -98,11 +98,11 @@ namespace WebApi.Controllers
 
         [HttpDelete]
         [Route("api/users/{id}")]
-        public HttpResponseMessage DeleteUser(int Id)
+        public HttpResponseMessage DeleteUser(int id)
         {
             using (var userHandler = new UserHandler())
             {
-                var response = userHandler.DeleteUser(Id);
+                var response = userHandler.DeleteUser(id);
 
                 HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
                    ? HttpStatusCode.OK
