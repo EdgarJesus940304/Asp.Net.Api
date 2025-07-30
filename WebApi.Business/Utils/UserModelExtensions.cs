@@ -13,6 +13,7 @@ namespace WebApi.Business.Utils
         {
             return model == null ? null : new Data.usuarios()
             {
+                idusuario = model.Id,
                 nombre = model.Name,
                 fechacreacion = model.CreationDate,
                 usuario = model.UserName,

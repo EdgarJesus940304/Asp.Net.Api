@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -32,6 +33,28 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/users/{id}")]
+        public HttpResponseMessage GetUser(int Id)
+        {
+            using (var userHandler = new UserHandler())
+            {
+                var response = userHandler.GetUserById(Id);
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                    ? HttpStatusCode.OK
+                    : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new MessageResponse
+                {
+                    ResponseType = response.ResponseType,
+                    Message = response.Message,
+                    Data = response.Data
+                });
+            }
+        }
+
+
 
         [HttpPost]
         [Route("api/users")]
@@ -59,29 +82,27 @@ namespace WebApi.Controllers
         {
             using (var userHandler = new UserHandler())
             {
-                var response = userHandler.UpdateUser(user);
-                if (response.ResponseType == Business.Utils.ResponseType.OK)
+                var response = userHandler.UpdateUser(id, user);
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                   ? HttpStatusCode.OK
+                   : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new MessageResponse
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, new
-                    {
-                        success = true,
-                        message = response.Message
-                    });
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, response.Message);
-                }
+                    ResponseType = response.ResponseType,
+                    Message = response.Message
+                });
             }
         }
 
         [HttpDelete]
         [Route("api/users/{id}")]
-        public HttpResponseMessage DeleteUser(int id)
+        public HttpResponseMessage DeleteUser(int Id)
         {
             using (var userHandler = new UserHandler())
             {
-                var response = userHandler.DeleteUser(id);
+                var response = userHandler.DeleteUser(Id);
                 if (response.ResponseType == Business.Utils.ResponseType.OK)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, new

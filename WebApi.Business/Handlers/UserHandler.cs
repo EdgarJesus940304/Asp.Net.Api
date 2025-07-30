@@ -1,6 +1,7 @@
 ﻿using LinqKit;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -97,11 +98,11 @@ namespace WebApi.Business.Handlers
             }
         }
 
-        public MessageResponse UpdateUser(UserModel user)
+        public MessageResponse UpdateUser(int id, UserModel user)
         {
             try
             {
-                var entry = Db.usuarios.Find(user.Id);
+                var entry = Db.usuarios.Find(id);
 
                 if (entry == null)
                 {
@@ -113,11 +114,12 @@ namespace WebApi.Business.Handlers
                 }
 
 
-                Db.Entry(entry).CurrentValues.SetValues(user);
+                Db.Entry(entry).CurrentValues.SetValues(user.ToUserData());
                 Db.SaveChanges();
 
                 return new MessageResponse()
                 {
+                    Message = "Usuario actualizado exitosamente",
                     ResponseType = ResponseType.OK
                 };
             }
