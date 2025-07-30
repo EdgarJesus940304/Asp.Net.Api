@@ -12,8 +12,7 @@ namespace WebApi.Business.Utils
     {
         public MessageResponse()
         {
-            Message = "";
-            Data = null;
+            Message = string.Empty;
         }
 
         public ResponseType ResponseType { get; set; }

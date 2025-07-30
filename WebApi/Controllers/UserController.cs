@@ -20,21 +20,18 @@ namespace WebApi.Controllers
             using (var userHandler = new UserHandler())
             {
                 var response = userHandler.GetUsers(filterData);
-                if (response.ResponseType == Business.Utils.ResponseType.OK)
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                         ? HttpStatusCode.OK
+                         : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, new
-                    {
-                        success = true,
-                        message = response.Message,
-                        data = response.Data
-                    });
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, response.Message);
-                }
+                    response.Data
+                });
             }
         }
+
 
         [HttpPost]
         [Route("api/users")]

@@ -12,9 +12,23 @@ namespace WebApi.Business.Utils
         public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByProperty,
                   bool desc)
         {
+            Dictionary<string, string> columnMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                { "Name", "nombre" },
+                { "UserName", "usuario" },
+                { "CreationDate", "fechacreacion" },
+            };
+
+            string mappedProperty;
+
+            if (!columnMap.TryGetValue(orderByProperty, out mappedProperty))
+            {
+                mappedProperty = orderByProperty;
+            }
+
             string command = desc ? "OrderByDescending" : "OrderBy";
             var type = typeof(TEntity);
-            var property = type.GetProperty(orderByProperty);
+            var property = type.GetProperty(mappedProperty);
             var parameter = Expression.Parameter(type, "p");
             var propertyAccess = Expression.MakeMemberAccess(parameter, property);
             var orderByExpression = Expression.Lambda(propertyAccess, parameter);

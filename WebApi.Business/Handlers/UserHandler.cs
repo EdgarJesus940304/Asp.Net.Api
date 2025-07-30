@@ -33,9 +33,9 @@ namespace WebApi.Business.Handlers
                     ResponseType = ResponseType.OK,
                     Data = new
                     {
-                        Users = result.Select(us => us.ToUserBusiness()).ToList(),
-                        FilteredResutlsCount = sqlQuery.AsExpandable().Where(whereClause).Count(),
-                        TotalResultsCount = sqlQuery.Count()
+                        recordsTotal = sqlQuery.Count(),
+                        recordsFiltered = sqlQuery.AsExpandable().Where(whereClause).Count(),
+                        data = result.Select(us => us.ToUserBusiness()).ToList()
                     }
                 };
             }
