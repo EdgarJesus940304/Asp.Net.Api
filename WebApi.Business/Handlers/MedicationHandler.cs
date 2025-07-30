@@ -167,6 +167,34 @@ namespace WebApi.Business.Handlers
 
         }
 
+        public MessageResponse GetPharmaceuticalForms()
+        {
+            try
+            {
+                var data = Db.formasfarmaceuticas
+                    .AsEnumerable()
+                    .Select(s => s.ToPharmaceuticalFormMBusiness()).ToList();
+
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.OK,
+                    Data = new
+                    {
+                        data = data
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"No fue posible consultar los formas farmaceuticas {ex.Message} {ex?.InnerException?.Message}"
+                };
+            }
+        }
+
         private Expression<Func<Data.medicamentos, bool>> BuildWhereClause(string searchValue)
         {
             var predicate = PredicateBuilder.New<Data.medicamentos>(true);

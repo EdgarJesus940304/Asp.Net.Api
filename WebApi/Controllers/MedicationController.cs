@@ -36,7 +36,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("api/medications/{id}")]
-        public HttpResponseMessage GetUser(int id)
+        public HttpResponseMessage GetMedication(int id)
         {
             using (var medicationHandler = new MedicationHandler())
             {
@@ -115,5 +115,27 @@ namespace WebApi.Controllers
                 });
             }
         }
+
+
+        [HttpGet]
+        [Route("api/medications/pharmaceuticalForms")]
+        public HttpResponseMessage GetPharmaceuticalForms()
+        {
+            using (var medicationHandler = new MedicationHandler())
+            {
+                var response = medicationHandler.GetPharmaceuticalForms();
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                         ? HttpStatusCode.OK
+                         : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new
+                {
+                    response.Data
+                });
+            }
+        }
+
+
     }
 }

@@ -46,6 +46,15 @@ namespace WebApi.Business.Utils
                 }
             };
         }
+        public static Models.PharmaceuticalFormModel ToPharmaceuticalFormMBusiness(this Data.formasfarmaceuticas data)
+        {
+            return data == null ? null : new Models.PharmaceuticalFormModel()
+            {
+                Id = data.idformafarmaceutica,
+                Name = data.nombre
+            };
+        }
+
 
         #endregion
     }
