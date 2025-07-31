@@ -74,7 +74,6 @@ namespace WebApi.Business.Handlers
             }
 
         }
-
         public MessageResponse SaveUser(UserModel user)
         {
             try
@@ -167,7 +166,48 @@ namespace WebApi.Business.Handlers
                 };
             }
         }
+        public MessageResponse Login(UserModel userModel)
+        {
+            try
+            {
+                var data = Db.usuarios.FirstOrDefault(f => f.usuario == userModel.UserName);
 
+                if (data is null)
+                {
+                    return new MessageResponse()
+                    {
+                        ResponseType = ResponseType.Warning,
+                        Message = "El usuario es incorrecto o no se encuentra registrado"
+                    };
+                }
+
+                if (data?.password != userModel.Password)
+                {
+                    return new MessageResponse()
+                    {
+                        ResponseType = ResponseType.Warning,
+                        Message = "La contraseña es incorrecta"
+                    };
+                }
+
+                UserModel user = data.ToUserBusiness();
+
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.OK,
+                    Data = user
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MessageResponse()
+                {
+                    ResponseType = ResponseType.Error,
+                    Message = $"Ocurrio un error al intentar inciar de sesion {ex.Message} {ex?.InnerException?.Message}"
+                };
+            }
+
+        }
         private Expression<Func<Data.usuarios, bool>> BuildWhereClause(string searchValue)
         {
             var predicate = PredicateBuilder.New<Data.usuarios>(true);

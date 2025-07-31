@@ -54,8 +54,6 @@ namespace WebApi.Controllers
             }
         }
 
-
-
         [HttpPost]
         [Route("api/users")]
         public HttpResponseMessage SaveUser([FromBody] UserModel user)
@@ -112,6 +110,30 @@ namespace WebApi.Controllers
                 {
                     ResponseType = response.ResponseType,
                     Message = response.Message
+                });
+            }
+        }
+
+
+        [HttpPost]
+        [Route("api/users/login")]
+        public HttpResponseMessage Login([FromBody] UserModel user)
+        {
+            using (var userHandler = new UserHandler())
+            {
+                var response = userHandler.Login(user);
+
+                HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
+                    ? HttpStatusCode.OK
+                    : response.ResponseType == Business.Utils.ResponseType.Warning 
+                    ? HttpStatusCode.BadRequest
+                    : HttpStatusCode.InternalServerError;
+
+                return Request.CreateResponse(statusCode, new MessageResponse
+                {
+                    ResponseType = response.ResponseType,
+                    Message = response.Message,
+                    Data = response.Data
                 });
             }
         }
