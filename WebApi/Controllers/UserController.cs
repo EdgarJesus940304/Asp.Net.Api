@@ -20,7 +20,7 @@ namespace WebApi.Controllers
         {
             using (var userHandler = new UserHandler())
             {
-                var response = userHandler.GetUsers(filterData);
+                var response = userHandler.ListUsers(filterData);
 
                 HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
                          ? HttpStatusCode.OK
@@ -60,7 +60,7 @@ namespace WebApi.Controllers
         {
             using (var userHandler = new UserHandler())
             {
-                var response = userHandler.SaveUser(user);
+                var response = userHandler.CreateUser(user);
 
                 HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
                     ? HttpStatusCode.OK
@@ -80,7 +80,7 @@ namespace WebApi.Controllers
         {
             using (var userHandler = new UserHandler())
             {
-                var response = userHandler.UpdateUser(id, user);
+                var response = userHandler.ModifyUser(id, user);
 
                 HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
                    ? HttpStatusCode.OK
@@ -100,7 +100,7 @@ namespace WebApi.Controllers
         {
             using (var userHandler = new UserHandler())
             {
-                var response = userHandler.DeleteUser(id);
+                var response = userHandler.RemoveUser(id);
 
                 HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
                    ? HttpStatusCode.OK

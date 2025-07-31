@@ -15,7 +15,7 @@ namespace WebApi.Business.Handlers
 {
     public class UserHandler : BaseHandler
     {
-        public MessageResponse GetUsers(FilterDataTableModel model)
+        public MessageResponse ListUsers(FilterDataTableModel model)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace WebApi.Business.Handlers
             }
 
         }
-        public MessageResponse SaveUser(UserModel user)
+        public MessageResponse CreateUser(UserModel user)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace WebApi.Business.Handlers
             }
         }
 
-        public MessageResponse UpdateUser(int id, UserModel user)
+        public MessageResponse ModifyUser(int id, UserModel user)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace WebApi.Business.Handlers
             }
         }
 
-        public MessageResponse DeleteUser(int userId)
+        public MessageResponse RemoveUser(int userId)
         {
             try
             {

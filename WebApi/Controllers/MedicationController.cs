@@ -20,7 +20,7 @@ namespace WebApi.Controllers
         {
             using (var medicationHandler = new MedicationHandler())
             {
-                var response = medicationHandler.GetMedications(filterData);
+                var response = medicationHandler.ListMedications(filterData);
 
                 HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
                          ? HttpStatusCode.OK
@@ -62,7 +62,7 @@ namespace WebApi.Controllers
         {
             using (var medicationHandler = new MedicationHandler())
             {
-                var response = medicationHandler.SaveMedication(medication);
+                var response = medicationHandler.CreateMedication(medication);
 
                 HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
                     ? HttpStatusCode.OK
@@ -82,7 +82,7 @@ namespace WebApi.Controllers
         {
             using (var medicationHandler = new MedicationHandler())
             {
-                var response = medicationHandler.UpdateMedication(medication);
+                var response = medicationHandler.ModifyMedication(medication);
 
                 HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
                     ? HttpStatusCode.OK
@@ -102,7 +102,7 @@ namespace WebApi.Controllers
         {
             using (var medicationHandler = new MedicationHandler())
             {
-                var response = medicationHandler.DeleteMedication(id);
+                var response = medicationHandler.RemoveMedication(id);
 
                 HttpStatusCode statusCode = response.ResponseType == Business.Utils.ResponseType.OK
                     ? HttpStatusCode.OK

@@ -14,7 +14,7 @@ namespace WebApi.Business.Handlers
 {
     public class MedicationHandler : BaseHandler
     {
-        public MessageResponse GetMedications(FilterDataTableModel model)
+        public MessageResponse ListMedications(FilterDataTableModel model)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace WebApi.Business.Handlers
             }
         }
 
-        public MessageResponse SaveMedication(MedicationModel medication)
+        public MessageResponse CreateMedication(MedicationModel medication)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace WebApi.Business.Handlers
             }
         }
 
-        public MessageResponse UpdateMedication(MedicationModel medication)
+        public MessageResponse ModifyMedication(MedicationModel medication)
         {
             try
             {
@@ -131,7 +131,7 @@ namespace WebApi.Business.Handlers
             }
         }
 
-        public MessageResponse DeleteMedication(int medicationId)
+        public MessageResponse RemoveMedication(int medicationId)
         {
             try
             {
