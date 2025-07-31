@@ -19,12 +19,14 @@ namespace WebApi.Business.Handlers
         {
             try
             {
+
+
                 var whereClause = BuildWhereClause(model.SearchBy);
                 var sqlQuery = Db.usuarios;
                 var result = sqlQuery
                                .AsExpandable()
                                .Where(whereClause)
-                               .OrderBy(model.SortBy, model.SortDir)
+                               .OrderBy(model.SortBy, model.SortDir, GetColumMapper())
                                .Skip(model.Skip)
                                .Take(model.Take > 0 ? model.Take : sqlQuery.Count())
                                .AsEnumerable();
@@ -218,6 +220,19 @@ namespace WebApi.Business.Handlers
                 predicate = predicate.Or(s => searchTerms.Any(srch => s.usuario.ToLower().Contains(srch)));
             }
             return predicate;
+        }
+
+        private Dictionary<string, string> GetColumMapper()
+        {
+            return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                { "Id", "idusuario" },
+                { "Name", "nombre" },
+                { "UserName", "usuario" },
+                { "Password", "password" },
+                { "CreationDate", "fechacreacion" },
+                { "StatusName", "estatus" },
+            };
         }
     }
 }

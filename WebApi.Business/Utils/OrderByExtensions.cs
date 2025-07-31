@@ -7,25 +7,13 @@ using System.Threading.Tasks;
 
 namespace WebApi.Business.Utils
 {
+   
     public static class OrderByExtensions
     {
         public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByProperty,
-                  bool desc)
+                  bool desc, Dictionary<string, string> columnMap)
         {
-            Dictionary<string, string> columnMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-            {
-                { "Id", "idusuario" },
-                { "Name", "nombre" },
-                { "UserName", "usuario" },
-                { "Password", "password" },
-                { "CreationDate", "fechacreacion" },
-                { "Concentration", "concentracion" },
-                { "Price", "precio" },
-                { "Stock", "stock" },
-                { "Presentation", "presentacion" },
-                { "StatusName", "estatus" },
-            };
-
+         
             string mappedProperty;
 
             if (!columnMap.TryGetValue(orderByProperty, out mappedProperty))

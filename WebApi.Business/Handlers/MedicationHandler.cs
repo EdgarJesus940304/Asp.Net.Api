@@ -23,7 +23,7 @@ namespace WebApi.Business.Handlers
                 var result = sqlQuery
                                .AsExpandable()
                                .Where(whereClause)
-                               .OrderBy(model.SortBy, model.SortDir)
+                               .OrderBy(model.SortBy, model.SortDir, GetColumMapper())
                                .Skip(model.Skip)
                                .Take(model.Take > 0 ? model.Take : sqlQuery.Count())
                                .AsEnumerable();
@@ -172,6 +172,7 @@ namespace WebApi.Business.Handlers
             try
             {
                 var data = Db.formasfarmaceuticas
+                    .Where(s => (s.habilitado.HasValue ? s.habilitado > 0 : false))
                     .AsEnumerable()
                     .Select(s => s.ToPharmaceuticalFormMBusiness()).ToList();
 
@@ -207,6 +208,21 @@ namespace WebApi.Business.Handlers
                 predicate = predicate.Or(s => searchTerms.Any(srch => s.formasfarmaceuticas.nombre.ToLower().Contains(srch)));
             }
             return predicate;
+        }
+
+        private Dictionary<string, string> GetColumMapper()
+        {
+            return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                { "Id", "idmedicamento" },
+                { "Name", "nombre" },
+                { "Concentration", "concentracion" },
+                { "Price", "precio" },
+                { "Stock", "stock" },
+                { "Presentation", "presentacion" },
+                { "PharmaceuticalForm", "idformafarmaceutica"},
+                { "StatusName", "bhabilitado" },
+            };
         }
     }
 }
