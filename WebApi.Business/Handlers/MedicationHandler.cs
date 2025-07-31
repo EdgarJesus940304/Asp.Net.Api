@@ -107,7 +107,7 @@ namespace WebApi.Business.Handlers
                     return new MessageResponse()
                     {
                         ResponseType = ResponseType.Error,
-                        Message = $"No fue posible obtener el medicamento especificado"
+                        Message = $"No fue posible obtener el medicamento a editar"
                     };
                 }
 
@@ -142,7 +142,7 @@ namespace WebApi.Business.Handlers
                     return new MessageResponse()
                     {
                         ResponseType = ResponseType.Error,
-                        Message = $"No fue posible obtener el medicamento especificado"
+                        Message = $"No fue posible obtener el medicamento a eliminar"
                     };
                 }
 
@@ -152,7 +152,7 @@ namespace WebApi.Business.Handlers
 
                 return new MessageResponse()
                 {
-                    Message = "Medicamento borrado exitosamente",
+                    Message = "Medicamento eliminado exitosamente",
                     ResponseType = ResponseType.OK
                 };
             }

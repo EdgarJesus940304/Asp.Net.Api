@@ -19,8 +19,6 @@ namespace WebApi.Business.Handlers
         {
             try
             {
-
-
                 var whereClause = BuildWhereClause(model.SearchBy);
                 var sqlQuery = Db.usuarios;
                 var result = sqlQuery
@@ -110,10 +108,9 @@ namespace WebApi.Business.Handlers
                     return new MessageResponse()
                     {
                         ResponseType = ResponseType.Error,
-                        Message = $"No fue posible obtener el usuario especificado"
+                        Message = $"No fue posible obtener el usuario a editar"
                     };
                 }
-
 
                 Db.Entry(entry).CurrentValues.SetValues(user.ToUserData());
                 Db.Entry(entry).Property(e => e.fechacreacion).IsModified = false;
@@ -146,7 +143,7 @@ namespace WebApi.Business.Handlers
                     return new MessageResponse()
                     {
                         ResponseType = ResponseType.Error,
-                        Message = $"No fue posible obtener el usuario especificado"
+                        Message = $"No fue posible obtener el usuario a eliminar"
                     };
                 }
 
@@ -156,7 +153,7 @@ namespace WebApi.Business.Handlers
                 return new MessageResponse()
                 {
                     ResponseType = ResponseType.OK,
-                    Message = "Usuario borrado exitosamente",
+                    Message = "Usuario ekiminado exitosamente",
                 };
             }
             catch (Exception ex)
