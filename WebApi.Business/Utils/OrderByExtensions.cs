@@ -14,13 +14,16 @@ namespace WebApi.Business.Utils
         {
             Dictionary<string, string> columnMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
+                { "Id", "idusuario" },
                 { "Name", "nombre" },
                 { "UserName", "usuario" },
+                { "Password", "password" },
                 { "CreationDate", "fechacreacion" },
                 { "Concentration", "concentracion" },
                 { "Price", "precio" },
                 { "Stock", "stock" },
                 { "Presentation", "presentacion" },
+                { "StatusName", "estatus" },
             };
 
             string mappedProperty;
